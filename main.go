@@ -2,12 +2,50 @@ package main
 
 import (
 	"fmt"
+	"interpreter/evaluator"
+	"interpreter/lexer"
+	"interpreter/object"
+	"interpreter/parser"
 	"interpreter/repl"
+	"io"
 	"os"
 	"os/user"
 )
 
 func main() {
+
+	env := object.NewEnvironment()
+	macroEnv := object.NewEnvironment()
+	out := os.Stdout
+
+	if len(os.Args) > 1 {
+		file := os.Args[1]
+		dat, err := os.ReadFile(
+			file,
+		)
+		if err != nil {
+			fmt.Println("Error reading file")
+			return
+		}
+		l := lexer.New(string(dat))
+		p := parser.New(l)
+		program := p.ParseProgram()
+
+		if len(p.Errors()) != 0 {
+			repl.PrintParserErrors(out, p.Errors())
+			return
+		}
+
+		evaluator.DefineMacros(program, macroEnv)
+		expanded := evaluator.ExpandMacros(program, macroEnv)
+		evaluated := evaluator.Eval(expanded, env)
+		if evaluated != nil {
+			io.WriteString(out, evaluated.Inspect())
+			io.WriteString(out, "\n")
+		}
+		return
+	}
+
 	user, err := user.Current()
 	if err != nil {
 		panic(err)
