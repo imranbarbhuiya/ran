@@ -50,6 +50,10 @@ func (l *Lexer) NextToken() token.Token {
 		tok = newToken(token.LBRACE, l.ch)
 	case '}':
 		tok = newToken(token.RBRACE, l.ch)
+	case '[':
+		tok = newToken(token.LBRACKET, l.ch)
+	case ']':
+		tok = newToken(token.RBRACKET, l.ch)
 	case '+':
 		tok = newToken(token.PLUS, l.ch)
 	case '-':
@@ -71,6 +75,11 @@ func (l *Lexer) NextToken() token.Token {
 		tok = newToken(token.LT, l.ch)
 	case '>':
 		tok = newToken(token.GT, l.ch)
+	case '"':
+		tok.Type = token.STRING
+		tok.Literal = l.readString()
+	case ':':
+		tok = newToken(token.COLON, l.ch)
 	case 0:
 		tok.Literal = ""
 		tok.Type = token.EOF
@@ -125,4 +134,19 @@ func (l *Lexer) peekChar() byte {
 	} else {
 		return l.input[l.readPosition]
 	}
+}
+
+func (l *Lexer) readString() string {
+	position := l.position + 1
+	for {
+		l.readChar()
+		if l.ch == '\\' && l.peekChar() == '"' {
+			l.readChar()
+			l.readChar()
+		}
+		if l.ch == '"' || l.ch == 0 {
+			break
+		}
+	}
+	return l.input[position:l.position]
 }
