@@ -160,3 +160,7 @@ func (h *Hash) Inspect() string {
 	out.WriteString("}")
 	return out.String()
 }
+
+type Hashable interface {
+	HashKey() HashKey
+}
