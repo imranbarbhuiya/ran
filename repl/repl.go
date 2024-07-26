@@ -3,11 +3,11 @@ package repl
 import (
 	"bufio"
 	"fmt"
-	"interpreter/evaluator"
-	"interpreter/lexer"
-	"interpreter/object"
-	"interpreter/parser"
 	"io"
+	"ran/evaluator"
+	"ran/lexer"
+	"ran/object"
+	"ran/parser"
 )
 
 const PROMPT = ">> "

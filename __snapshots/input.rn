@@ -1,0 +1,18 @@
+let applyOperation = fn (a, b, operation) {
+    return operation(a, b)
+}
+
+let multiply = fn (x, y) {
+    return x * y
+}
+
+print(applyOperation(3, 4, multiply))
+
+let fruits = ["Apple", "Banana", "Cherry"]
+print(fruits[1])
+
+let person = {
+    "name": "Alice",
+    "age": 30
+}
+print(person["name"])

@@ -1,8 +1,8 @@
 package evaluator
 
 import (
-	"interpreter/ast"
-	"interpreter/object"
+	"ran/ast"
+	"ran/object"
 )
 
 func DefineMacros(program *ast.Program, env *object.Environment) {

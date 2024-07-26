@@ -2,9 +2,9 @@ package parser
 
 import (
 	"fmt"
-	"interpreter/ast"
-	"interpreter/lexer"
-	"interpreter/token"
+	"ran/ast"
+	"ran/lexer"
+	"ran/token"
 	"strconv"
 )
 

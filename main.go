@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
-	"interpreter/evaluator"
-	"interpreter/lexer"
-	"interpreter/object"
-	"interpreter/parser"
-	"interpreter/repl"
 	"io"
 	"os"
 	"os/user"
+	"ran/evaluator"
+	"ran/lexer"
+	"ran/object"
+	"ran/parser"
+	"ran/repl"
 )
 
 func main() {

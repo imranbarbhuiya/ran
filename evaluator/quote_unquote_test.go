@@ -1,7 +1,7 @@
 package evaluator
 
 import (
-	"interpreter/object"
+	"ran/object"
 	"testing"
 )
 
