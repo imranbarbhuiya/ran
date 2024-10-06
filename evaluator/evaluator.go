@@ -257,6 +257,9 @@ func evalIfExpression(ie *ast.IfExpression, env *object.Environment) object.Obje
 }
 
 func isTruthy(obj object.Object) bool {
+	if obj.Inspect() == "0" {
+		return false
+	}
 	switch obj {
 	case NULL:
 		return false

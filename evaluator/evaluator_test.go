@@ -218,7 +218,7 @@ if (10 > 1) {
 			`"Hello" - "World"`,
 			"unknown operator: STRING - STRING",
 		}, {
-			`{"name": "Monkey"}[fn(x) { x }];`,
+			`{"name": "Ran"}[fn(x) { x }];`,
 			"unusable as hash key: FUNCTION",
 		},
 	}

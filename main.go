@@ -10,6 +10,7 @@ import (
 	"ran/object"
 	"ran/parser"
 	"ran/repl"
+	"ran/replc"
 )
 
 func main() {
@@ -18,7 +19,7 @@ func main() {
 	macroEnv := object.NewEnvironment()
 	out := os.Stdout
 
-	if len(os.Args) > 1 {
+	if len(os.Args) > 1 && os.Args[1] != "--vm" {
 		file := os.Args[1]
 		dat, err := os.ReadFile(
 			file,
@@ -52,5 +53,10 @@ func main() {
 	}
 	fmt.Printf("Hello %s! This is the a programming language!\n", user.Username)
 	fmt.Printf("Feel free to type in commands\n")
+
+	if len(os.Args) > 1 && os.Args[1] == "--vm" {
+		replc.Start(os.Stdin, os.Stdout)
+		return
+	}
 	repl.Start(os.Stdin, os.Stdout)
 }

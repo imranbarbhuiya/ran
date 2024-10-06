@@ -115,6 +115,7 @@ unless(10 > 5, puts("not greater"), puts("greater"));
 - [ ] Add more built-in functions
 - [ ] Add more tests
 - [ ] A bytecode compiler and a virtual machine
+  - In progress, start from conditions
 - [ ] A Vs Code extension for syntax highlighting and running Ran code
 
 ## Conclusion
