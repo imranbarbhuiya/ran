@@ -340,6 +340,20 @@ func testIntegerObject(t *testing.T, obj object.Object, expected int64) bool {
 	return true
 }
 
+func testStringObject(t *testing.T, obj object.Object, expected string) bool {
+	result, ok := obj.(*object.String)
+	if !ok {
+		t.Errorf("object is not String. got=%T (%+v)", obj, obj)
+		return false
+	}
+	if result.Value != expected {
+		t.Errorf("object has wrong value. got=%s, want=%s", result.Value, expected)
+		return false
+	}
+
+	return true
+}
+
 func testBooleanObject(t *testing.T, obj object.Object, expected bool) bool {
 	result, ok := obj.(*object.Boolean)
 	if !ok {
@@ -552,12 +566,41 @@ func TestHashIndexExpressions(t *testing.T) {
 		{
 			`{false: 5}[false]`,
 			5},
+		// {
+		// 	`"ran"[1]`,
+		// 	"a"},
+		// {
+		// 	`"ran"[3]`,
+		// 	nil},
 	}
 	for _, tt := range tests {
 		evaluated := testEval(tt.input)
 		integer, ok := tt.expected.(int)
 		if ok {
 			testIntegerObject(t, evaluated, int64(integer))
+		} else {
+			testNullObject(t, evaluated)
+		}
+	}
+}
+
+func TestStringIndexExpressions(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected interface{}
+	}{
+		{
+			`"ran"[1]`,
+			"a"},
+		{
+			`"ran"[3]`,
+			nil},
+	}
+	for _, tt := range tests {
+		evaluated := testEval(tt.input)
+		str, ok := tt.expected.(string)
+		if ok {
+			testStringObject(t, evaluated, str)
 		} else {
 			testNullObject(t, evaluated)
 		}

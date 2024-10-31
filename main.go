@@ -55,6 +55,7 @@ func main() {
 	fmt.Printf("Feel free to type in commands\n")
 
 	if len(os.Args) > 1 && os.Args[1] == "--vm" {
+		fmt.Printf("Warning: VM mode is still work in progress and doesn't include all the features\n")
 		replc.Start(os.Stdin, os.Stdout)
 		return
 	}
